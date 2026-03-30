@@ -1,12 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './',           // ← This is the most important line for GitHub Pages
-  build: {
-    outDir: 'dist',
-    assetsDir: 'assets'
-  }
+  base: '/pawprint-3d-designer/',   // Important: use your repo name here
 })
