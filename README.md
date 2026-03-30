@@ -2,7 +2,7 @@
 
 This project is built using Vite, React, and react-three/fiber. It allows users to configure and customize clothing products such as t-shirts for now.
 
-## Features
+## Features 
 
 - Customize clothing products by adding logos, resizing, and adjusting their position.
 - Upload a texture or logo to be added to the clothing product.
