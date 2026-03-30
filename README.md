@@ -13,7 +13,7 @@ This project is built using Vite, React, and react-three/fiber. It allows users 
 
 ## Getting Started
 
-1. Clone this repository
+1. Clone this repository 
 2. Install dependencies: `npm install`
 3. Start the development server: `npm run dev`
 
