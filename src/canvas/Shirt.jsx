@@ -2,15 +2,13 @@ import React from 'react'
 import * as THREE from 'three';
 import { easing } from 'maath';
 import { useSnapshot } from 'valtio';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { Decal, useGLTF, useTexture, OrbitControls } from '@react-three/drei';
-
 import state from '../store';
 
 const Shirt = () => {
   const snap = useSnapshot(state);
   const { nodes, materials } = useGLTF('/shirt.glb');
-
   const logoTexture = useTexture(snap.frontLogoDecal);
   const fullTexture = useTexture(snap.fullDecal);
   const backLogoTexture = useTexture(snap.backLogoDecal);
@@ -35,68 +33,35 @@ const Shirt = () => {
   return (
     <>
       <OrbitControls />
-      <group key={stateString}>
-        <mesh
-          geometry={nodes.T_Shirt_male.geometry}
-          material={materials.lambert1}
-          // material-roughness={0}
-          material-metalness={0.1}
-          dispose={null}
-        >
-          {snap.isFullTexture && (
-            <Decal
-              position={[0, 0, 0]}
-              rotation={[0, 0, 0]}
-              scale={1}
-              map={fullTexture}
-              depthTest={false}
-              depthWrite={true}
-            />
-          )}
-
-          {snap.isFrontLogoTexture && (
-              <Decal
-                position={snap.frontLogoPosition}
-                rotation={[0, 0, 0]}
-                scale={snap.frontLogoScale}
-                map={logoTexture}
-                map-anisotropy={16}
-                depthTest={false}
-                depthWrite={true}
-              />
-          )}
-          {snap.isFrontText && (
-          <Decal
-            position={snap.frontTextPosition}
-            rotation={snap.frontTextRotation}
-            scale={snap.frontTextScale}
-            map={createTextTexture(snap.frontText, snap.frontTextFont, snap.frontTextSize, snap.frontTextColor)}
-          />
-          )}
-
-          {snap.isBackLogoTexture && (
-            <Decal
-              position={snap.backLogoPosition}
-              rotation={snap.backLogoRotation}
-              scale={snap.backLogoScale}
-              map={backLogoTexture}
-              map-anisotropy={16}
-              depthTest={false}
-              depthWrite={true}
-            />
-          )}
-          {snap.isBackText && (
-            <Decal
-              position={snap.backTextPosition}
-              rotation={snap.backTextRotation}
-              scale={snap.backTextScale}
-              map={createTextTexture(snap.backText, snap.backTextFont, snap.backTextSize, snap.backTextColor)}
-            />
-          )}
-        </mesh>
+      {/* Vertical lift to prevent top clipping on zoom */}
+      <group position={[0, 0.15, 0]}>
+        <group key={stateString}>
+          <mesh
+            geometry={nodes.T_Shirt_male.geometry}
+            material={materials.lambert1}
+            material-metalness={0.1}
+            dispose={null}
+          >
+            {snap.isFullTexture && (
+              <Decal position={[0, 0, 0]} rotation={[0, 0, 0]} scale={1} map={fullTexture} depthTest={false} depthWrite={true} />
+            )}
+            {snap.isFrontLogoTexture && (
+              <Decal position={snap.frontLogoPosition} rotation={[0, 0, 0]} scale={snap.frontLogoScale} map={logoTexture} map-anisotropy={16} depthTest={false} depthWrite={true} />
+            )}
+            {snap.isFrontText && (
+              <Decal position={snap.frontTextPosition} rotation={snap.frontTextRotation} scale={snap.frontTextScale} map={createTextTexture(snap.frontText, snap.frontTextFont, snap.frontTextSize, snap.frontTextColor)} />
+            )}
+            {snap.isBackLogoTexture && (
+              <Decal position={snap.backLogoPosition} rotation={snap.backLogoRotation} scale={snap.backLogoScale} map={backLogoTexture} map-anisotropy={16} depthTest={false} depthWrite={true} />
+            )}
+            {snap.isBackText && (
+              <Decal position={snap.backTextPosition} rotation={snap.backTextRotation} scale={snap.backTextScale} map={createTextTexture(snap.backText, snap.backTextFont, snap.backTextSize, snap.backTextColor)} />
+            )}
+          </mesh>
+        </group>
       </group>
     </>
   );
 }
 
-export default Shirt
+export default Shirt;
