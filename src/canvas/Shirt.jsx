@@ -8,7 +8,7 @@ import state from '../store';
 
 const Shirt = () => {
   const snap = useSnapshot(state);
-  const { nodes, materials } = useGLTF('/shirt.glb');
+  const { nodes, materials } = useGLTF('./shirt.glb');   // Changed to relative path
   const logoTexture = useTexture(snap.frontLogoDecal);
   const fullTexture = useTexture(snap.fullDecal);
   const backLogoTexture = useTexture(snap.backLogoDecal);
@@ -33,7 +33,6 @@ const Shirt = () => {
   return (
     <>
       <OrbitControls />
-      {/* Vertical lift to prevent top clipping on zoom */}
       <group position={[0, 0.15, 0]}>
         <group key={stateString}>
           <mesh
