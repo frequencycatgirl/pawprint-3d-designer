@@ -8,10 +8,10 @@ import state from '../store';
 
 const Shirt = () => {
   const snap = useSnapshot(state);
-  const { nodes, materials } = useGLTF('./shirt.glb');   // Changed to relative path
-  const logoTexture = useTexture(snap.frontLogoDecal);
-  const fullTexture = useTexture(snap.fullDecal);
-  const backLogoTexture = useTexture(snap.backLogoDecal);
+  const { nodes, materials } = useGLTF('./shirt.glb');
+  const logoTexture = useTexture(snap.frontLogoDecal || '/threejs.png'); // fallback
+  const fullTexture = useTexture(snap.fullDecal || '/threejs.png');
+  const backLogoTexture = useTexture(snap.backLogoDecal || '/threejs.png');
 
   useFrame((state, delta) => easing.dampC(materials.lambert1.color, snap.color, 0.25, delta));
 
@@ -28,7 +28,7 @@ const Shirt = () => {
     ctx.font = `${size}px ${font}`;
     ctx.fillText(text, 0, size);
     return new THREE.CanvasTexture(canvas);
-  }
+  };
 
   return (
     <>
@@ -41,26 +41,57 @@ const Shirt = () => {
             material-metalness={0.1}
             dispose={null}
           >
-            {snap.isFullTexture && (
-              <Decal position={[0, 0, 0]} rotation={[0, 0, 0]} scale={1} map={fullTexture} depthTest={false} depthWrite={true} />
+            {snap.isFullTexture && fullTexture && (
+              <Decal 
+                position={[0, 0, 0]} 
+                rotation={[0, 0, 0]} 
+                scale={1} 
+                map={fullTexture} 
+                depthTest={false} 
+                depthWrite={true} 
+              />
             )}
-            {snap.isFrontLogoTexture && (
-              <Decal position={snap.frontLogoPosition} rotation={[0, 0, 0]} scale={snap.frontLogoScale} map={logoTexture} map-anisotropy={16} depthTest={false} depthWrite={true} />
+            {snap.isFrontLogoTexture && logoTexture && (
+              <Decal 
+                position={snap.frontLogoPosition} 
+                rotation={[0, 0, 0]} 
+                scale={snap.frontLogoScale} 
+                map={logoTexture} 
+                depthTest={false} 
+                depthWrite={true} 
+              />
             )}
             {snap.isFrontText && (
-              <Decal position={snap.frontTextPosition} rotation={snap.frontTextRotation} scale={snap.frontTextScale} map={createTextTexture(snap.frontText, snap.frontTextFont, snap.frontTextSize, snap.frontTextColor)} />
+              <Decal 
+                position={snap.frontTextPosition} 
+                rotation={snap.frontTextRotation} 
+                scale={snap.frontTextScale} 
+                map={createTextTexture(snap.frontText, snap.frontTextFont, snap.frontTextSize, snap.frontTextColor)} 
+              />
             )}
-            {snap.isBackLogoTexture && (
-              <Decal position={snap.backLogoPosition} rotation={snap.backLogoRotation} scale={snap.backLogoScale} map={backLogoTexture} map-anisotropy={16} depthTest={false} depthWrite={true} />
+            {snap.isBackLogoTexture && backLogoTexture && (
+              <Decal 
+                position={snap.backLogoPosition} 
+                rotation={snap.backLogoRotation} 
+                scale={snap.backLogoScale} 
+                map={backLogoTexture} 
+                depthTest={false} 
+                depthWrite={true} 
+              />
             )}
             {snap.isBackText && (
-              <Decal position={snap.backTextPosition} rotation={snap.backTextRotation} scale={snap.backTextScale} map={createTextTexture(snap.backText, snap.backTextFont, snap.backTextSize, snap.backTextColor)} />
+              <Decal 
+                position={snap.backTextPosition} 
+                rotation={snap.backTextRotation} 
+                scale={snap.backTextScale} 
+                map={createTextTexture(snap.backText, snap.backTextFont, snap.backTextSize, snap.backTextColor)} 
+              />
             )}
           </mesh>
         </group>
       </group>
     </>
   );
-}
+};
 
 export default Shirt;
