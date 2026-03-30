@@ -5,16 +5,22 @@ const CameraRig = ({ children }) => {
   const { camera } = useThree();
 
   useEffect(() => {
-    const isBreakpoint = window.innerWidth <= 1260;
-    const isMobile = window.innerWidth <= 600;
+    const updateCamera = () => {
+      const isBreakpoint = window.innerWidth <= 1260;
+      const isMobile = window.innerWidth <= 600;
 
-    // set the initial position of the model
-    let targetPosition = [-0.4, 0, 2];
-    if (isBreakpoint) targetPosition = [0, 0, 2];
-    if (isMobile) targetPosition = [0, 0.2, 2.5];
+      let targetPosition = [-0.4, 0, 3];
+      if (isBreakpoint) targetPosition = [0, 0, 3.2];
+      if (isMobile) targetPosition = [0, 0.2, 3.8];
 
-    // set model camera position
-    camera.position.set(...targetPosition);
+      camera.position.set(...targetPosition);
+      camera.lookAt(0, 0.1, 0);
+      camera.updateProjectionMatrix();
+    };
+
+    updateCamera();
+    window.addEventListener('resize', updateCamera);
+    return () => window.removeEventListener('resize', updateCamera);
   }, [camera]);
 
   return <>{children}</>;
