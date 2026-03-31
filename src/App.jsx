@@ -21,13 +21,13 @@ function App() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow transition-all ease-in">
+      <main className="flex-grow transition-all ease-in relative">
         <Home />
         <Canvas />
         <Customizer />
       </main>
 
-      {/* Sticky Contact Bar – always visible, no scroll needed */}
+      {/* Sticky Contact Bar */}
       <footer className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-md border-t border-red-600/40 py-3 z-50 shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 text-center text-sm">
           <p className="text-gray-300">

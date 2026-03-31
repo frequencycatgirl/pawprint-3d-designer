@@ -8,6 +8,9 @@ import TextControls from '../canvas/TextControls';
 const Customizer = () => {
   const snap = useSnapshot(state);
 
+  // Hide the panel during intro
+  if (snap.intro) return null;
+
   const downloadDesign = () => {
     if (snap.frontDecalUrl) {
       const link = document.createElement('a');
@@ -64,7 +67,7 @@ const Customizer = () => {
         </div>
       </div>
 
-      {/* Compact buttons - higher up, always visible in the panel */}
+      {/* Compact buttons */}
       <div className="p-5 border-t border-gray-700 bg-gray-900/95 flex flex-col gap-3">
         <button 
           onClick={downloadDesign}
