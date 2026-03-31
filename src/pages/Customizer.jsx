@@ -36,7 +36,7 @@ const Customizer = () => {
       
       {/* Header */}
       <div className="p-5 border-b border-gray-700 bg-gray-800">
-        <h2 className="text-xl font-bold text-white">Customize Your Shirt</h2>
+        <h2 className="text-xl font-bold text-white">Customize Shirt</h2>
       </div>
 
       {/* Scrollable Controls */}
@@ -51,20 +51,20 @@ const Customizer = () => {
           />
         </div>
 
-        {/* Front & Back Logos */}
+        {/* Logos */}
         <div>
           <p className="text-gray-400 mb-3 text-sm font-medium">Front & Back Logos</p>
           <LogoControls />
         </div>
 
-        {/* Add Text */}
+        {/* Text */}
         <div>
           <p className="text-gray-400 mb-3 text-sm font-medium">Add Text (Front / Back)</p>
           <TextControls />
         </div>
       </div>
 
-      {/* Compact buttons - higher up, always visible */}
+      {/* Compact buttons - higher up, always visible in the panel */}
       <div className="p-5 border-t border-gray-700 bg-gray-900/95 flex flex-col gap-3">
         <button 
           onClick={downloadDesign}
