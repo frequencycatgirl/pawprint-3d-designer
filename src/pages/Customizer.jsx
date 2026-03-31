@@ -32,51 +32,52 @@ const Customizer = () => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-gray-900/95 backdrop-blur-md border-l border-red-600/30 overflow-hidden">
+    <div className="absolute top-0 left-0 z-10 w-80 h-full bg-gray-900/95 backdrop-blur-md border-r border-red-600/30 overflow-hidden flex flex-col">
+      
       {/* Header */}
-      <div className="p-6 border-b border-gray-700">
-        <h2 className="text-2xl font-bold text-white">Customize Your Shirt</h2>
-        <p className="text-gray-400 text-sm mt-1">Upload logos, add text, choose color</p>
+      <div className="p-5 border-b border-gray-700">
+        <h2 className="text-xl font-bold text-white">Customize</h2>
       </div>
 
-      {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-8">
+      {/* Scrollable Controls */}
+      <div className="flex-1 overflow-y-auto p-5 space-y-8">
+        
         {/* Shirt Color */}
         <div>
-          <p className="text-gray-400 mb-3">Shirt Color</p>
+          <p className="text-gray-400 mb-3 text-sm font-medium">Shirt Color</p>
           <SketchPicker 
             color={snap.color} 
             onChange={(color) => state.color = color.hex} 
+            disableAlpha
           />
         </div>
 
-        {/* Logo Upload & Controls */}
+        {/* Front & Back Logos */}
         <div>
-          <p className="text-gray-400 mb-3">Front & Back Logos</p>
+          <p className="text-gray-400 mb-3 text-sm font-medium">Front & Back Logos</p>
           <LogoControls />
         </div>
 
-        {/* Text Controls */}
+        {/* Add Text */}
         <div>
-          <p className="text-gray-400 mb-3">Add Text (Front / Back)</p>
+          <p className="text-gray-400 mb-3 text-sm font-medium">Add Text (Front / Back)</p>
           <TextControls />
         </div>
       </div>
 
-      {/* Fixed Action Buttons at Bottom - No Scroll Needed */}
-      <div className="p-6 border-t border-gray-700 bg-gray-900/95 flex flex-col gap-3">
+      {/* Small fixed buttons just below the shirt area */}
+      <div className="p-4 border-t border-gray-700 bg-gray-900/95 flex gap-3">
         <button 
           onClick={downloadDesign}
-          className="w-full bg-red-600 hover:bg-red-700 text-white py-3.5 rounded-xl font-semibold text-base transition-all active:scale-95"
+          className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl text-sm font-semibold transition-all"
         >
-          📥 Download Front + Back PNGs
+          Download PNGs
         </button>
-
         <button 
           onClick={submitDesign}
-          className="w-full bg-green-600 hover:bg-green-700 text-white py-3.5 rounded-xl font-semibold text-base transition-all active:scale-95"
+          className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl text-sm font-semibold transition-all"
         >
-          ✉️ Submit Design via Email
+          Submit via Email
         </button>
       </div>
     </div>
