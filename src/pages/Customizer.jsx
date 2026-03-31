@@ -8,73 +8,77 @@ import TextControls from '../canvas/TextControls';
 const Customizer = () => {
   const snap = useSnapshot(state);
 
-  // Download both front and back designs as PNGs
   const downloadDesign = () => {
-    // Front
     if (snap.frontDecalUrl) {
       const link = document.createElement('a');
-      link.download = 'pawprint-design-front.png';
+      link.download = 'pawprint-front.png';
       link.href = snap.frontDecalUrl;
       link.click();
     }
-
-    // Back (small delay so both downloads don't overlap)
     setTimeout(() => {
       if (snap.backDecalUrl) {
         const link2 = document.createElement('a');
-        link2.download = 'pawprint-design-back.png';
+        link2.download = 'pawprint-back.png';
         link2.href = snap.backDecalUrl;
         link2.click();
       }
-    }, 400);
+    }, 300);
   };
 
-  // Open email client with pre-filled message
   const submitDesign = () => {
     const subject = "My Custom PawPrint T-Shirt Design";
-    const body = `Hi PawPrint America,\n\nHere is my custom t-shirt design.\n\nFront design attached\nBack design attached\n\nShirt color: ${snap.color}\n\nThank you!`;
+    const body = `Hi PawPrint America,\n\nHere is my custom t-shirt design.\nFront and back attached.\nShirt color: ${snap.color}\n\nThank you!`;
     window.location.href = `mailto:print@pawprintamerica.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
-    <div className="customizer p-6 bg-gray-900/95 backdrop-blur-md h-full overflow-y-auto text-white">
-      <h2 className="text-2xl font-bold mb-6">Customize Your Shirt</h2>
-
-      {/* Shirt Color */}
-      <div className="mb-8">
-        <p className="text-gray-400 mb-2">Shirt Color</p>
-        <SketchPicker 
-          color={snap.color} 
-          onChange={(color) => state.color = color.hex} 
-        />
+    <div className="h-full flex flex-col bg-gray-900/95 backdrop-blur-md border-l border-red-600/30 overflow-hidden">
+      {/* Header */}
+      <div className="p-6 border-b border-gray-700">
+        <h2 className="text-2xl font-bold text-white">Customize Your Shirt</h2>
+        <p className="text-gray-400 text-sm mt-1">Upload logos, add text, choose color</p>
       </div>
 
-      {/* Logo & Text Controls */}
-      <div className="space-y-10">
-        <LogoControls />
-        <TextControls />
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto p-6 space-y-8">
+        {/* Shirt Color */}
+        <div>
+          <p className="text-gray-400 mb-3">Shirt Color</p>
+          <SketchPicker 
+            color={snap.color} 
+            onChange={(color) => state.color = color.hex} 
+          />
+        </div>
+
+        {/* Logo Upload & Controls */}
+        <div>
+          <p className="text-gray-400 mb-3">Front & Back Logos</p>
+          <LogoControls />
+        </div>
+
+        {/* Text Controls */}
+        <div>
+          <p className="text-gray-400 mb-3">Add Text (Front / Back)</p>
+          <TextControls />
+        </div>
       </div>
 
-      {/* Big Action Buttons */}
-      <div className="mt-12 space-y-4">
+      {/* Fixed Action Buttons at Bottom - No Scroll Needed */}
+      <div className="p-6 border-t border-gray-700 bg-gray-900/95 flex flex-col gap-3">
         <button 
           onClick={downloadDesign}
-          className="w-full bg-red-600 hover:bg-red-700 py-4 rounded-2xl font-bold text-lg transition-all active:scale-95"
+          className="w-full bg-red-600 hover:bg-red-700 text-white py-3.5 rounded-xl font-semibold text-base transition-all active:scale-95"
         >
-          📥 Download Front & Back Designs
+          📥 Download Front + Back PNGs
         </button>
 
         <button 
           onClick={submitDesign}
-          className="w-full bg-green-600 hover:bg-green-700 py-4 rounded-2xl font-bold text-lg transition-all active:scale-95"
+          className="w-full bg-green-600 hover:bg-green-700 text-white py-3.5 rounded-xl font-semibold text-base transition-all active:scale-95"
         >
-          ✉️ Submit Design to PawPrint America
+          ✉️ Submit Design via Email
         </button>
       </div>
-
-      <p className="text-center text-xs text-gray-500 mt-6">
-        Download the PNG files and attach them in the email, or use the Submit button.
-      </p>
     </div>
   );
 };
