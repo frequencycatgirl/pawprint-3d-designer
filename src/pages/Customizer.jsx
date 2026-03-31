@@ -8,7 +8,7 @@ import TextControls from '../canvas/TextControls';
 const Customizer = () => {
   const snap = useSnapshot(state);
 
-  // Hide the panel during intro
+  // Hide panel during intro
   if (snap.intro) return null;
 
   const downloadDesign = () => {
@@ -67,17 +67,17 @@ const Customizer = () => {
         </div>
       </div>
 
-      {/* Compact buttons */}
+      {/* Action Buttons - Moved higher up, always visible */}
       <div className="p-5 border-t border-gray-700 bg-gray-900/95 flex flex-col gap-3">
         <button 
           onClick={downloadDesign}
-          className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl text-sm font-semibold transition-all"
+          className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl text-sm font-semibold transition-all active:scale-95"
         >
           📥 Download Front & Back
         </button>
         <button 
           onClick={submitDesign}
-          className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl text-sm font-semibold transition-all"
+          className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl text-sm font-semibold transition-all active:scale-95"
         >
           ✉️ Submit to PawPrint
         </button>
