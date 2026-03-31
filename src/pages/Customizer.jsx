@@ -32,16 +32,15 @@ const Customizer = () => {
   };
 
   return (
-    <div className="absolute top-0 left-0 z-10 w-80 h-full bg-gray-900/95 backdrop-blur-md border-r border-red-600/30 overflow-hidden flex flex-col">
+    <div className="absolute top-0 right-0 z-20 w-80 h-full bg-gray-900/95 backdrop-blur-md border-l border-red-600/30 overflow-hidden flex flex-col shadow-2xl">
       
       {/* Header */}
-      <div className="p-5 border-b border-gray-700">
-        <h2 className="text-xl font-bold text-white">Customize</h2>
+      <div className="p-5 border-b border-gray-700 bg-gray-800">
+        <h2 className="text-xl font-bold text-white">Customize Your Shirt</h2>
       </div>
 
       {/* Scrollable Controls */}
       <div className="flex-1 overflow-y-auto p-5 space-y-8">
-        
         {/* Shirt Color */}
         <div>
           <p className="text-gray-400 mb-3 text-sm font-medium">Shirt Color</p>
@@ -65,19 +64,19 @@ const Customizer = () => {
         </div>
       </div>
 
-      {/* Small fixed buttons just below the shirt area */}
-      <div className="p-4 border-t border-gray-700 bg-gray-900/95 flex gap-3">
+      {/* Compact buttons - higher up, always visible */}
+      <div className="p-5 border-t border-gray-700 bg-gray-900/95 flex flex-col gap-3">
         <button 
           onClick={downloadDesign}
-          className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl text-sm font-semibold transition-all"
+          className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl text-sm font-semibold transition-all"
         >
-          Download PNGs
+          📥 Download Front & Back
         </button>
         <button 
           onClick={submitDesign}
-          className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl text-sm font-semibold transition-all"
+          className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl text-sm font-semibold transition-all"
         >
-          Submit via Email
+          ✉️ Submit to PawPrint
         </button>
       </div>
     </div>
